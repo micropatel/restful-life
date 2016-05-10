@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+     	http://www.springframework.org/schema/jdbc
+      	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+      	http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        
+	<context:property-placeholder location="classpath:global.properties" ignore-unresolvable="true"/>
+	
+	<context:annotation-config />
+	
+	<context:component-scan base-package=
+		"com.sti.services"
+	/>
+		
+<!--   	<bean name="simpleCORSFilter" class="com.athletigen.apps.zeus.webmvc.security.global.SimpleCORSFilter"> -->
+<!-- 	   <property name="allowedHeaders" value="${cors.allowed.headers}" /> -->
+<!-- 	   <property name="allowedOrigins" value="${cors.allowed.origins}" /> -->
+<!-- 	   <property name="allowedMethods" value="${cors.allowed.methods}" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="defaultExecutorService" class="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean">
+		<property name="corePoolSize" value="50" />
+		<property name="maxPoolSize" value="50" />
+		<property name="keepAliveSeconds" value="10" />
+	</bean>
+	
+	<tx:annotation-driven />
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="defaultSessionFactory" />
+	</bean>
+	
+	<bean name="defaultSessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		scope="singleton">
+		<property name="dataSource" ref="defaultDataSource" />
+		<property name="packagesToScan"
+			value="com.sti.services,com.sti.rest" />
+<!-- 		<property name="namingStrategy"> -->
+<!-- 			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" /> -->
+<!-- 		</property> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+				</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="defaultDataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="maxActive" value="${default.connection.maxActive}" />
+		<property name="maxIdle" value="${default.connection.maxIdle}" />
+		<property name="maxWait" value="${default.connection.maxWait}" />
+		<property name="username" value="${default.connection.username}" />
+		<property name="password" value="${default.connection.password}" />
+		<property name="driverClassName" value="${default.connection.driverClassName}" />
+		<property name="url" value="${default.connection.url}" />
+		<property name="testOnBorrow" value="${default.connection.testOnBorrow}" />
+		<property name="validationQuery" value="${default.connection.validationQuery}" />
+		<property name="validationInterval" value="${default.connection.validationInterval}" />
+		<property name="removeAbandoned" value="${default.connection.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${default.connection.removeAbandonedTimeout}" />
+		<property name ="logAbandoned" value="${default.connection.logAbandoned}" />
+	</bean>
+	  
+</beans>
