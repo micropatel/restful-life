@@ -32,5 +32,9 @@ public class CredentialsDAO {
 		return (Credentials) criteria.uniqueResult();
 	}
 	
-
+	public void save(Credentials credentials) {
+		Validate.notNull(credentials, "credentials is null!");
+		final Session session = this.sessionFactory.getCurrentSession();
+		session.save(credentials);
+	}
 }

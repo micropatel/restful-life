@@ -24,8 +24,6 @@ public class Account {
 	private long id;
 	
 	@Column(nullable=false)
-	private String authority;
-	
 	private Calendar created;
 	
 	@OneToOne(mappedBy="account")
@@ -66,13 +64,5 @@ public class Account {
 
 	public void setCreated(Calendar created) {
 		this.created = created;
-	}
-
-	public String getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
 	}
 }

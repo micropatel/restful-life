@@ -170,4 +170,21 @@ public class CoreServices {
 		
 		return newAccessToken;
 	}
+	
+	@Transactional
+	public Account createAccount(String username, String password) {
+		Validate.isTrue(StringUtils.isNotBlank(username), "username is blank!");
+		Validate.isTrue(StringUtils.isNotBlank(password), "password is blank!");
+		final Account newAccount = new Account();
+		newAccount.setCreated(Calendar.getInstance());
+		
+		final Credentials newCredentials = new Credentials();
+		newCredentials.setAccount(newAccount);
+		newCredentials.setUsername(username);
+		newCredentials.setPassword(password);//should use encryption here such as jasypt
+		
+		this.accountDAO.save(newAccount);
+		this.credentialsDAO.save(newCredentials);
+		return newCredentials.getAccount();
+	}
 }

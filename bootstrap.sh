@@ -21,3 +21,4 @@ gunzip mysql-connector-java-5.1.30.tar.gz
 tar xvf mysql-connector-java-5.1.30.tar
 cp mysql-connector-java-5.1.30/mysql-connector-java-5.1.30-bin.jar /usr/share/tomcat7/lib
 service tomcat7 restart
+
