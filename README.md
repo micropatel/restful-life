@@ -125,5 +125,5 @@ Method: **GET**
 Comments:
 The api allows for searching contacts based on any attribute of the contact object, the search only works for string matching similar to contains, for instance **/api/v1/accounts/1/contacts/1?email=@test.com** will retrieve a list of contacts that have an email that contains the text __"@test.com"__
 
-### Error resolving
-> Because the way spring mvc works, I've had to provide a custom error resolution that is fully compatible with JSON and matches the HTTP REST bets practices. The error resolution code is a property of Storm Inc. which is available for reuse under an open source license. This code is only for educational purposes and shouldn't be used in a production type environment. 
+### Runtime Exception Handling
+> Because the way spring mvc works, I've had to provide a custom error resolution that is fully compatible with JSON and matches the HTTP REST best practices. The error resolution code is a property of Stormpath, Inc. which is available for reuse under an open source license. This code is only for educational purposes and shouldn't be used in a production type environment. 
