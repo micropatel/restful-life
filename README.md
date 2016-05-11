@@ -53,7 +53,7 @@ Sample response is
 	"contacts":null
 }
 ```
-2. perform api authentication using client_id and client_secret (default values are specified in **src/main/webapp/WEB-INF/securityContext.xml** as testClient adn testSecret respectively as well as account authentication using the username and password using in step 1). A sample commands is below
+2. perform api authentication using client_id and client_secret (default values are specified in **src/main/webapp/WEB-INF/securityContext.xml** as **testClient** and **testSecret** respectively as well as account authentication using the username and password using in step 1). A sample commands is below
 ```
 curl -v -X GET   -H "Content-Type: application/json"   'http://localhost:8080/sti_services/api/auth/token?client_id=testClient&client_secret=testSecret&username=me&password=mypassword'
 ```
@@ -125,4 +125,5 @@ Method: **GET**
 Comments:
 The api allows for searching contacts based on any attribute of the contact object, the search only works for string matching similar to contains, for instance **/api/v1/accounts/1/contacts/1?email=@test.com** will retrieve a list of contacts that have an email that contains the text __"@test.com"__
 
-
+### Error resolving
+> Because the way spring mvc works, I've had to provide a custom error resolution that is fully compatible with JSON and matches the HTTP REST bets practices. The error resolution code is a property of Storm Inc. which is available for reuse under an open source license. This code is only for educational purposes and shouldn't be used in a production type environment. 
