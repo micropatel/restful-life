@@ -53,7 +53,7 @@ Sample response is
 	"contacts":null
 }
 ```
-2. perform api authentication using client_id and client_secret (default values are specified in src/main/webapp/WEB-INF/securityContext.xml as testClient adn testSecret respectively as well as account authentication using the username and password using in step 1). A sample commands is below
+2. perform api authentication using client_id and client_secret (default values are specified in **src/main/webapp/WEB-INF/securityContext.xml** as testClient adn testSecret respectively as well as account authentication using the username and password using in step 1). A sample commands is below
 ```
 curl -v -X GET   -H "Content-Type: application/json"   'http://localhost:8080/sti_services/api/auth/token?client_id=testClient&client_secret=testSecret&username=me&password=mypassword'
 ```
@@ -73,11 +73,11 @@ curl -v -X GET   -H "Content-Type: application/json"  -H "authorization: c1f816c
 ```
 
 The api spec is as follows
-
-view all contacts		/api/v1/accounts/{accountId}/contacts				GET
-view a specific contact /api/v1/accounts/{accountId}/contacts/{contactId}	GET
-create a new contact    /api/v1/accounts/{accountId}/contacts				POST
-
+API|Http Method|Comments
+---|-----------|---------
+/api/v1/accounts/{accountId}/contacts|GET|view all contacts for a given account
+/api/v1/accounts/{accountId}/contacts/{contactId}|GET| view details of a given contact using contactId
+/api/v1/accounts/{accountId}/contacts|POST|create a new contact  
 POST format
 {
 	"firstName"			: "value",
