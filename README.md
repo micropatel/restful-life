@@ -72,12 +72,18 @@ Sample response is
 curl -v -X GET   -H "Content-Type: application/json"  -H "authorization: c1f816c6-720a-4c5f-95e2-19edd7f2269b" 'http://localhost:8080/sti_services/api/v1/accounts/3/contacts'
 ```
 
-The api spec is as follows
-API | Http Method | Comments
---- | ----------- | ---------
-/api/v1/accounts/{accountId}/contacts | GET | view all contacts for a given account
-/api/v1/accounts/{accountId}/contacts/{contactId} | GET| view details of a given contact using contactId
-/api/v1/accounts/{accountId}/contacts | POST | create a new contact  
+##API Specification
+
+######View all contacts
+URL: **/api/v1/accounts/{accountId}/contacts**
+Method: **GET**
+
+######view a specific contact 
+URL: **/api/v1/accounts/{accountId}/contacts/{contactId}**
+Method: **GET**
+
+create a new contact    /api/v1/accounts/{accountId}/contacts				POST
+
 POST format
 {
 	"firstName"			: "value",
