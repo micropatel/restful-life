@@ -75,16 +75,22 @@ curl -v -X GET   -H "Content-Type: application/json"  -H "authorization: c1f816c
 ##API Specification
 
 ######View all contacts
+
 URL: **/api/v1/accounts/{accountId}/contacts**
+
 Method: **GET**
 
 ######view a specific contact 
+
 URL: **/api/v1/accounts/{accountId}/contacts/{contactId}**
+
 Method: **GET**
 
-create a new contact    /api/v1/accounts/{accountId}/contacts				POST
-
-POST format
+######Create a new contact    
+URL: **/api/v1/accounts/{accountId}/contacts**				
+Method: **POST**
+Body:
+```Json
 {
 	"firstName"			: "value",
 	"lastName"			: "value",
@@ -93,6 +99,7 @@ POST format
 	"cellphoneNumber" 	: "value",
 	"homeNumber" 		: "value"
 }
+```
 
 Update a specific contact /api/v1/accounts/{accountId}/contacts/{contactId}	PUT
 
