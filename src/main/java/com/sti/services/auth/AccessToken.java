@@ -71,7 +71,7 @@ public class AccessToken {
 			//let's find out if the age is good
 			
 			
-			return new DateTime().isAfter(this.getExpirationDate());
+			return new DateTime().isBefore(this.getExpirationDate());
 		}
 		
 		return false;
