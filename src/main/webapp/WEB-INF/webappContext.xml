@@ -26,6 +26,14 @@
 
 	<context:component-scan base-package="com.sti.rest" />
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- protect all api requests -->
+	        <mvc:mapping path="/v1/**" />
+	        <ref bean="securityProtectionHandlerInterceptorAdapter" />
+	    </mvc:interceptor>
+	</mvc:interceptors>
+	
 	<bean id="restExceptionResolver" class="com.sti.rest.error.RestExceptionHandler">
         <property name="order" value="100"/>
         <property name="messageConverters">

@@ -1,8 +1,10 @@
 package com.sti.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +19,10 @@ import com.sti.services.account.AccountQuery;
 import com.sti.services.account.Credentials;
 import com.sti.services.account.CredentialsDAO;
 import com.sti.services.account.CredentialsQuery;
+import com.sti.services.auth.AccessToken;
+import com.sti.services.auth.AccessTokenConfig;
+import com.sti.services.auth.AccessTokenDAO;
+import com.sti.services.auth.TokenInfo;
 import com.sti.services.contact.Contact;
 import com.sti.services.contact.ContactDAO;
 import com.sti.services.contact.ContactInfo;
@@ -33,6 +39,12 @@ public class CoreServices {
 	
 	@Autowired(required=true)
 	private CredentialsDAO credentialsDAO;
+	
+	@Autowired(required=true)
+	private AccessTokenDAO accessTokenDAO;
+	
+	@Autowired(required=true)
+	private AccessTokenConfig accessTokenConfig;
 		
 	@Transactional
 	public ContactInfo findContact(ContactQuery query) {		
@@ -126,7 +138,36 @@ public class CoreServices {
 	public Credentials findCredentials(CredentialsQuery query) {
 		Validate.notNull(query, "query is null!");
 		final Credentials credentials = this.credentialsDAO.find(query);
-		Validate.notNull(credentials, "unable to find credentials matching query " + query);
 		return credentials;
+	}
+	
+	@Transactional
+	public TokenInfo findAccessToken(String token) {
+		Validate.isTrue(StringUtils.isNotBlank(token), "token is blank!");
+		final AccessToken accessToken = this.accessTokenDAO.find(token);
+		final TokenInfo info = new TokenInfo();
+		info.setActive(accessToken.isActive());
+		info.setToken(accessToken.getToken());
+		info.setPrincipal(accessToken.getPrincipal().getId());
+		
+		return info;
+	}
+
+	@Transactional
+	public AccessToken createAccessToken(String username) {
+		Validate.isTrue(StringUtils.isNotBlank(username), "username is blank!");
+		final CredentialsQuery credsQuery = new CredentialsQuery();
+		credsQuery.setUsername(username);
+		final Credentials credentials = this.findCredentials(credsQuery);
+		Validate.notNull(credentials, "unable to find credentials matching username " + username);
+		final AccessToken newAccessToken = new AccessToken();
+		newAccessToken.setToken(UUID.randomUUID().toString());
+		newAccessToken.setPrincipal(credentials.getAccount());
+		newAccessToken.setCreated(Calendar.getInstance());
+		newAccessToken.setEnabled(true);
+		newAccessToken.setAge(this.accessTokenConfig.getAge());
+		this.accessTokenDAO.save(newAccessToken);
+		
+		return newAccessToken;
 	}
 }

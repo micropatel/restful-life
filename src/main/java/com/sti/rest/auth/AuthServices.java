@@ -6,35 +6,24 @@ import org.springframework.stereotype.Component;
 
 import com.sti.services.CoreServices;
 import com.sti.services.account.Account;
-import com.sti.services.account.Credentials;
-import com.sti.services.account.CredentialsQuery;
+import com.sti.services.account.AccountQuery;
 
 @Component
 public class AuthServices {
 	
 	@Autowired(required=true)
 	private CoreServices coreServices;
+	
+	@Autowired(required=true)
+	private AuthContextManager authContextManager;
 
 	public Account getAuthenticatedAccount() {
-//		final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		final AuthContext authContext = this.authContextManager.getAuthContext();
+		Validate.notNull(authContext, "authContext is null!");
+		final AccountQuery accountQuery = new AccountQuery();
+		accountQuery.setId(authContext.getPrincipal());
 		
-		final CredentialsQuery credsQuery = new CredentialsQuery();
-		
-//		if (principal instanceof UserDetails) {
-//		  String username = ((UserDetails)principal).getUsername();
-//		  credsQuery.setUsername(username);
-//		} else {
-//		  String username = principal.toString();
-//		  credsQuery.setUsername(username);
-//		}
-		
-		credsQuery.setUsername("test");
-		
-//		Validate.isTrue(StringUtils.isNotBlank(credsQuery.getUsername()), 
-//						"Wierd, there is no username specified for the current authenticated user!");
-		
-		final Credentials creds = this.coreServices.findCredentials(credsQuery);
-		final Account account = creds.getAccount();
+		final Account account = this.coreServices.findAccount(accountQuery);
 		Validate.notNull(account, "unable to retrieve current authenticated account!");
 		
 		return account;
