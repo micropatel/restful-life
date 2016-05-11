@@ -73,11 +73,11 @@ curl -v -X GET   -H "Content-Type: application/json"  -H "authorization: c1f816c
 ```
 
 The api spec is as follows
-API|Http Method|Comments
----|-----------|---------
-/api/v1/accounts/{accountId}/contacts|GET|view all contacts for a given account
-/api/v1/accounts/{accountId}/contacts/{contactId}|GET| view details of a given contact using contactId
-/api/v1/accounts/{accountId}/contacts|POST|create a new contact  
+API | Http Method | Comments
+--- | ----------- | ---------
+/api/v1/accounts/{accountId}/contacts | GET | view all contacts for a given account
+/api/v1/accounts/{accountId}/contacts/{contactId} | GET| view details of a given contact using contactId
+/api/v1/accounts/{accountId}/contacts | POST | create a new contact  
 POST format
 {
 	"firstName"			: "value",
