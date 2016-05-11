@@ -118,7 +118,7 @@ Body:
 
 ######Search for a contact 	
 
-URL: **/api/v1/accounts/{accountId}/contacts?**
+URL: **/api/v1/accounts/{accountId}/contacts?email=&firstName=&address=&cellphoneNumber=&lastName=&homeNumber=**
 
 Method: **GET**
 
