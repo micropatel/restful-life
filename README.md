@@ -88,29 +88,41 @@ Method: **GET**
 
 ######Create a new contact    
 URL: **/api/v1/accounts/{accountId}/contacts**				
+
 Method: **POST**
+
 Body:
 ```Json
 {
-	"firstName"			: "value",
-	"lastName"			: "value",
-	"email" 			: "value",
-	"address"			: "value",
-	"cellphoneNumber" 	: "value",
-	"homeNumber" 		: "value"
+	"firstName"			: "Ashraf",
+	"lastName"			: "Ahmed",
+	"email" 			: "email@example.com",
+	"address"			: "some address",
+	"cellphoneNumber" 	: "some phone",
+	"homeNumber" 		: "some other phone"
 }
 ```
 
-Update a specific contact /api/v1/accounts/{accountId}/contacts/{contactId}	PUT
+######Update a specific contact 
 
-PUT format
+URL: **/api/v1/accounts/{accountId}/contacts/{contactId}**
+
+Method: **PUT**
+
+Body:
+```Json
 {
 	"email" 			: "new_value"
 }
+```
 
-search for a contact 	/api/v1/accounts/{accountId}/contacts?			GET
-The api allows for searching contacts based on any attribute of the contact object, the search only works for string matching similar to contains, for instance
+######Search for a contact 	
 
-/api/v1/accounts/1/contacts/1?email=@test.com will retrieve a list of contacts that have an email that contains the text "@test.com"
+URL: **/api/v1/accounts/{accountId}/contacts?**
+
+Method: **GET**
+
+Comments:
+The api allows for searching contacts based on any attribute of the contact object, the search only works for string matching similar to contains, for instance **/api/v1/accounts/1/contacts/1?email=@test.com** will retrieve a list of contacts that have an email that contains the text __"@test.com"__
 
 
